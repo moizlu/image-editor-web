@@ -32,7 +32,6 @@
         .slider {
             @apply appearance-none w-full h-7 cursor-pointer border-accent border;
         }
-
         .slider::-webkit-slider-runnable-track {
             @apply appearance-none w-full h-7 cursor-pointer border-accent border;
         }
@@ -42,11 +41,11 @@
         }
 
         .slider::-webkit-slider-thumb {
-            @apply appearance-none w-5 h-5 bg-accent transition-transform duration-150;
+            @apply appearance-none w-5 h-5 mt-1 bg-accent transition-transform duration-150;
         }
 
         .slider::-moz-range-thumb {
-            @apply appearance-none w-5 h-5 bg-accent transition-transform duration-150;
+            @apply appearance-none w-5 h-5 mt-1 bg-accent transition-transform duration-150;
         }
 
     }
