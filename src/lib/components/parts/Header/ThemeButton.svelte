@@ -7,6 +7,6 @@
     }
 </script>
 
-<button {onclick} class="bg-primary m-2" id="theme-button">
-    <Icon lightSrc="/images/light/theme.svg" darkSrc="/images/dark/theme.svg" alt="theme" width={50} class="" />
+<button {onclick} class="bg-transparent m-2 drop-shadow-sm drop-shadow-primary" id="theme-button">
+    <Icon lightSrc="/images/light/theme.svg" darkSrc="/images/dark/theme.svg" alt="theme" width={50} class="drop-shadow-sm drop-shadow-primary" />
 </button>

@@ -34,9 +34,9 @@
 
         <div class="grid grid-cols-2 gap-2 m-2">
             <!-- <ToggleButton bind:state={effects.trimming}><p class="text-2xl">トリミング</p></ToggleButton> -->
-            <ToggleButton bind:state={effects.grayscale}><p class="text-2xl">グレイスケール</p></ToggleButton>
             <Slider bind:value={effects.blur}><p class="text-2xl">ぼかし</p></Slider>
             <Slider bind:value={effects.edge}><p class="text-2xl">エッジ抽出</p></Slider>
+            <ToggleButton bind:state={effects.grayscale}><p class="text-2xl">グレイスケール</p></ToggleButton>
             <ToggleButton bind:state={effects.flipH}><p class="text-2xl">水平方向に反転</p></ToggleButton>
             <ToggleButton bind:state={effects.flipV}><p class="text-2xl">垂直方向に反転</p></ToggleButton>
         </div>

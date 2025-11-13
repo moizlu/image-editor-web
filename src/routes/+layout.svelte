@@ -9,6 +9,7 @@
     import { initTheme } from "$lib/theme.svelte";
 	import SplashScreen from '$lib/components/parts/SplashScreen/SplashScreen.svelte';
 	import Header from '$lib/components/parts/Header/Header.svelte';
+	import Footer from '$lib/components/parts/Footer/Footer.svelte';
 	import { onMount } from "svelte";
 
 	let { children } = $props();
@@ -48,6 +49,8 @@
 <div class="main-content">
 	{@render children()}
 </div>
+<Footer />
+
 
 <style>
     @media screen and (max-height :900px) {
@@ -55,4 +58,11 @@
             margin-top: 5rem;
         }
     }
+
+    @media screen and (max-height :1200px) {
+        .main-content {
+            margin-bottom: 5rem;
+        }
+    }
+
 </style>
