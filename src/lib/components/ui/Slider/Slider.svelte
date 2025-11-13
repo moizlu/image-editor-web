@@ -33,6 +33,10 @@
             @apply appearance-none w-full h-7 cursor-pointer border-accent border;
         }
 
+        .slider::-webkit-slider-runnable-track {
+            @apply appearance-none w-full h-7 cursor-pointer border-accent border;
+        }
+
         .slider::-moz-range-track {
             @apply appearance-none w-full h-7 cursor-pointer border-accent border;
         }
