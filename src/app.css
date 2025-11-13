@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&display=swap');
+@import 'tailwindcss';
+
+html {
+    scroll-behavior: smooth;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --breakpoint-xs: 450px;
+    --breakpoint-2xs: 365px;
+
+    --font-primary: "M PLUS 1p", "monospace";
+
+    --color-light: var(--color-zinc-100);
+    --color-dark: var(--color-zinc-800);
+
+    --color-primary: light-dark(var(--color-light), var(--color-dark));
+    --color-accent: light-dark(var(--color-dark), var(--color-light));
+}
+
+@layer base {
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+
+    .flex-col-center {
+        @apply flex flex-col justify-center items-center;
+    }
+
+    .button-general {
+        @apply transition-all duration-200 bg-accent hover:bg-primary active:bg-primary text-primary hover:text-accent active:text-accent border-accent border;
+    }
+
+    button, a {
+        @apply transition-all duration-200 bg-accent hover:bg-primary active:bg-primary text-primary hover:text-accent active:text-accent border-accent border;
+    }
+
+    input[type="number"] {
+        @apply border-accent border;
+    }
+}
