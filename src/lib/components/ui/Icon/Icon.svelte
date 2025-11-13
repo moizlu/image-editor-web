@@ -13,7 +13,7 @@
     const transition = "transition-opacity duration-300";
 </script>
 
-<div class={[className, "relative"]}>
+<div class={[className, "relative pointer-events-none"]}>
     <img src={lightSrc} class={[lightImgClassName, transition, "absolute opacity-100 dark:opacity-0"]} {...props} />
     <img src={darkSrc} class={[darkImgClassName, transition, "opacity-0 dark:opacity-100"]} {...props} />
 </div>

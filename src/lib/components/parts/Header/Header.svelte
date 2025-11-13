@@ -23,7 +23,7 @@
 
 <Modal bind:isOpened={isShareOpened}>
     <div class="flex-col-center bg-primary m-2 p-5 border-accent border shadow-lg shadow-primary">
-        <Icon lightSrc="/images/light/qr.svg" darkSrc="/images/dark/qr.svg" alt="QRコード" width={500} class="m-2 scale-100" />
+        <Icon lightSrc="/images/light/qr.svg" darkSrc="/images/dark/qr.svg" alt="QRコード" width={500} class="m-2 scale-100 pointer-events-none" />
         <div class="max-sm:flex-col flex justify-center items-center gap-4">
             <p class="text-sm md:text-2xl m-2">https://imageeditor.moizlu.com/</p>
             <CopyButton url="https://imageeditor.moizlu.com/" />
