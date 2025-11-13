@@ -16,7 +16,7 @@
     <ThemeButton />
 </header>
 
-<button class="fixed bottom-0 right-2 sm:right-[calc(50%-var(--breakpoint-sm)/2)] m-5 z-10001 bg-transparent border-0" onclick={() => isShareOpened = !isShareOpened}>
+<button class="fixed bottom-0 right-2 m-5 z-10001 bg-transparent border-0" onclick={() => isShareOpened = !isShareOpened}>
     <Icon lightSrc="/images/light/close.svg" darkSrc="/images/dark/close.svg" alt="share" width={70} class={[(isShareOpened) ? "block" : "hidden", "absolute drop-shadow-primary drop-shadow-sm"]} />
     <Icon lightSrc="/images/light/share.svg" darkSrc="/images/dark/share.svg" alt="share" width={70} class={[(isShareOpened) ? "hidden" : "block", "drop-shadow-primary drop-shadow-sm"]} />
 </button>
