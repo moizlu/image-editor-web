@@ -58,4 +58,11 @@
             margin-top: 5rem;
         }
     }
+
+    @media screen and (max-height :1200px) {
+        .main-content {
+            margin-bottom: 5rem;
+        }
+    }
+
 </style>
