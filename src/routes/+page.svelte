@@ -35,7 +35,7 @@
         <div class="grid grid-cols-2 gap-2 m-2">
             <ToggleButton bind:state={effects.trimming}>
                 <p class="text-xl">トリミング</p>
-                <p class="text-sm text-red-500">開発中、縮小表示がONか<br>2回目以降のトリミングだと<br>ズレます。</p>
+                <p class="text-sm text-red-500">開発中<br>縮小表示がONか<br>2回目以降は<br>ズレます。</p>
                 <p>右下でトリミング/<br>左上でリセット</p>
             </ToggleButton>
             <Slider bind:value={effects.blur}><p class="text-2xl">ぼかし</p></Slider>
