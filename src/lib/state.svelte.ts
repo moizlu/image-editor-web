@@ -9,7 +9,7 @@ export const imageSrc: { displaySrc: string | undefined, distSrc: string | undef
 });
 
 export const effects = $state({
-    autoResize: true,
+    autoResize: false,
     trimming: false,
     grayscale: false,
     blur: 0.0,
