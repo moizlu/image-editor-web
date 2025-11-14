@@ -2,6 +2,12 @@
     import { trimmingProps, effects } from "$lib/state.svelte";
     import { onMount } from "svelte";
 
+
+    interface Props {
+        imgElement: HTMLImageElement;
+    }
+    const { imgElement }: Props = $props();
+
     let canvas: HTMLCanvasElement | undefined = undefined;
     let ctx: CanvasRenderingContext2D | undefined = undefined;
 
@@ -10,6 +16,44 @@
         const rect = canvas.getBoundingClientRect();
         canvas.width = rect.width;
         canvas.height = rect.height;
+    }
+
+    const canvasToImageCo = (x: number, y: number): { x: number, y: number } => {
+        if ((!canvas) || (!ctx) || (!imgElement)) { return { x: 0, y: 0 }; }
+
+        const imageRatio = imgElement.naturalWidth / imgElement.naturalHeight;
+        const imageDisplayRatio = imgElement.clientWidth / imgElement.clientHeight;
+
+        let renderedWidth = 0;
+        let renderedHeight = 0;
+        let canvasMargin = { x: 0, y: 0};
+
+        // 縦か横か
+        if (imageRatio > imageDisplayRatio) {
+            renderedWidth = imgElement.clientWidth;
+            renderedHeight = imgElement.clientWidth / imageRatio;
+            canvasMargin.y = (imgElement.clientHeight - renderedHeight) / 2;
+        } else {
+            renderedHeight = imgElement.clientHeight;
+            renderedWidth = imgElement.clientHeight * imageRatio;
+            canvasMargin.x = (imgElement.clientWidth - renderedWidth) / 2;
+        }
+
+        if ((x < canvasMargin.x) || (x > canvasMargin.x +renderedWidth) ||
+            (y < canvasMargin.y) || (y > canvasMargin.y +renderedHeight)) {
+            return { x: x, y: y };
+        }
+
+        const relative = {
+            x: x - canvasMargin.x,
+            y: y - canvasMargin.y
+        }
+        const imageCo = {
+            x: Math.round(relative.x * (imgElement.naturalWidth / renderedWidth)),
+            y: Math.round(relative.y * (imgElement.naturalHeight / renderedHeight))
+        };
+
+        return imageCo;
     }
 
     onMount(() => {
@@ -30,6 +74,7 @@
     const onmousedown = (e: MouseEvent) => {
         if ((!canvas) || (!ctx) || (!effects.trimming)) { return; }
         trimmingProps.isMousePressing = true;
+        trimmingProps.isValid = false;
 
         setBoundingClientRect();
 
@@ -40,6 +85,10 @@
 
         trimmingProps.beginX = e.offsetX;
         trimmingProps.beginY = e.offsetY;
+
+        const imgCo = canvasToImageCo(e.offsetX, e.offsetY);
+        trimmingProps.beginImgX = imgCo.x;
+        trimmingProps.beginImgY = imgCo.y;
     }
 
     const onmouseup = (e: MouseEvent) => {
@@ -60,12 +109,19 @@
         trimmingProps.endX = e.offsetX;
         trimmingProps.endY = e.offsetY;
 
-        trimmingProps.width = trimmingProps.endX - trimmingProps.beginX;
-        trimmingProps.height = trimmingProps.endY - trimmingProps.beginY;
+        const imgCo = canvasToImageCo(e.offsetX, e.offsetY);
+        trimmingProps.endImgX = imgCo.x;
+        trimmingProps.endImgY = imgCo.y;
+
+        const width = e.offsetX - trimmingProps.beginX;
+        const height = e.offsetY - trimmingProps.beginY;
+
+        trimmingProps.imgWidth = trimmingProps.endImgX - trimmingProps.beginImgX;
+        trimmingProps.imgHeight = trimmingProps.endImgY - trimmingProps.beginImgY;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.strokeRect(trimmingProps.beginX, trimmingProps.beginY, trimmingProps.width, trimmingProps.height);
+        ctx.strokeRect(trimmingProps.beginX, trimmingProps.beginY, width, height);
     }
 </script>
 

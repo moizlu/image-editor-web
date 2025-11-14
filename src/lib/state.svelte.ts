@@ -9,7 +9,7 @@ export const imageSrc: { displaySrc: string | undefined, distSrc: string | undef
 });
 
 export const effects = $state({
-    autoResize: true,
+    autoResize: false,
     trimming: false,
     grayscale: false,
     blur: 0.0,
@@ -22,9 +22,13 @@ export const trimmingProps = $state({
     beginX: -1,
     beginY: -1,
     endX:   -1,
-    endY:   -1,
-    width:  -1,
-    height: -1,
+    endY: -1,
+    beginImgX: -1,
+    beginImgY: -1,
+    endImgX: -1,
+    endImgY: -1,
+    imgWidth:  -1,
+    imgHeight: -1,
     isMousePressing: false,
     isValid: false
 });
