@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { effects, imageSrc } from "$lib/state.svelte";
+    import { effects, imageSrc, trimmingProps } from "$lib/state.svelte";
     import Dialog from "$lib/components/ui/Dialog/Dialog.svelte";
     import { Utils } from "$lib/utils";
     import cv from "@techstark/opencv-js";
@@ -48,6 +48,8 @@
             imageSrc.originalSrc = ev.target?.result as string;
             imageSrc.distSrc = imageSrc.originalSrc;
         });
+
+        trimmingProps.isValid = false;
     }
 
     const handleFileChange = (event: Event) => {

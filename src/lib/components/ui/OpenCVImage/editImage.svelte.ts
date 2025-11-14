@@ -4,7 +4,7 @@ import cv from "@techstark/opencv-js";
 
 export const editImage = (srcUrl: string | undefined, onCompleted: (dataUrl: string) => void, isDist: boolean=false) => {
     const { autoResize, trimming, grayscale, blur, edge, flipH, flipV } = effects;
-    const { beginX, beginY, width, height, isMousePressing } = trimmingProps;
+    const { beginImgX, beginImgY, imgWidth, imgHeight, isMousePressing } = trimmingProps;
 
     if ((!srcUrl) || (isMousePressing)) { return; }
 
@@ -14,13 +14,14 @@ export const editImage = (srcUrl: string | undefined, onCompleted: (dataUrl: str
     img.onload = () => {
         let src = cv.imread(img);
 
-        if ((trimming) && (trimmingProps.isValid)) {
+        if ((trimming) && (trimmingProps.isValid) && (imgWidth > 0)) {
+
             let rect: cv.Rect | undefined = undefined;
 
             if ((isDist) && (autoResize)) {
-                rect = new cv.Rect(beginX / imageSrc.magRate, beginY / imageSrc.magRate, width / imageSrc.magRate, height / imageSrc.magRate);
+                rect = new cv.Rect(beginImgX / imageSrc.magRate, beginImgY / imageSrc.magRate, imgWidth / imageSrc.magRate, imgHeight / imageSrc.magRate);
             } else {
-                rect = new cv.Rect(beginX, beginY, width, height);
+                rect = new cv.Rect(beginImgX, beginImgY, imgWidth, imgHeight);
             }
 
             const dist = src.roi(rect);
@@ -50,7 +51,7 @@ export const editImage = (srcUrl: string | undefined, onCompleted: (dataUrl: str
         }
 
         const canvas = document.createElement("canvas");
-        cv.imshow(canvas, src);
+        cv.imshow(canvas, src); // ここ
         onCompleted(canvas.toDataURL("image/png"));
 
         src.delete();
