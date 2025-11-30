@@ -1,6 +1,6 @@
 <script lang="ts">
     import downloadLight from "$lib/assets/images/light/download.svg";
-    import downloadDark from "$lib/assets/images/Dark/download.svg";
+    import downloadDark from "$lib/assets/images/dark/download.svg";
 
     import { getCanvas } from "$lib/components/ui/CanvasContainer/state.svelte";
 
