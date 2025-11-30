@@ -1,0 +1,45 @@
+@reference './layout.css';
+
+@layer base {
+    input[type="range"] {
+        @apply relative appearance-none transition-all duration-300 my-[2px] h-6 cursor-pointer rounded-full inset-shadow-black inset-shadow-sm/50 bg-label/5 shadow-black hover:shadow-md/100 active:shadow-md/100;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+        @apply relative appearance-none transition-all duration-300 my-[2px] h-6 cursor-pointer rounded-full inset-shadow-black inset-shadow-sm/50 bg-label/5 shadow-black hover:shadow-md/100 active:shadow-md/100;
+    }
+    input[type="range"]::-moz-range-track {
+        @apply relative appearance-none transition-all duration-300 my-[2px] h-6 cursor-pointer rounded-full inset-shadow-black inset-shadow-sm/50 bg-label/5 shadow-black hover:shadow-md/100 active:shadow-md/100;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        @apply appearance-none rounded-md w-9 h-7 -mt-[2px] bg-base-light shadow-black shadow-md/100;
+    }
+    input[type="range"]::-moz-range-thumb {
+        @apply appearance-none rounded-md w-9 h-7 -mt-[2px] bg-base-light shadow-black shadow-md/100;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
+        @apply appearance-none rounded-sm p-1 shadow-black shadow-sm/100 text-right
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+@layer components {
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+
+    .flex-col-center {
+        @apply flex flex-col justify-center items-center;
+    }
+
+    .button-general {
+        @apply transition-all duration-300 rounded-sm hover:bg-label/3 active:bg-label/10 shadow-black shadow-md/100 hover:shadow-md/50 active:shadow-sm/5 cursor-pointer disabled:cursor-not-allowed disabled:bg-disabled disabled:shadow-sm/10;
+    }
+}
