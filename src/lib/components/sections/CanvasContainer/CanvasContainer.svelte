@@ -70,7 +70,7 @@
     <CreateCanvasDialog bind:isOpened={isCanvasCreateDialogOpened} />
 
     {#if !isCanvasCreated()}
-        <div class="absolute top-0 left-0 w-full h-full bg-base">
+        <div transition:fade={{ duration: 300 }} class="absolute top-0 left-0 w-full h-full bg-base">
             <div class="w-82 h-full mx-auto flex flex-col justify-center itmes-start gap-5">
                 <button type="button" title="画像を追加" onclick={onUploadOverlayClicked} class="button-general">
                     <div class="flex-center gap-2">
