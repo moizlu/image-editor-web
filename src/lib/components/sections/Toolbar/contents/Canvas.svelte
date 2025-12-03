@@ -1,20 +1,16 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import { getCanvas, logicSize } from "../../CanvasContainer/state.svelte";
+    import { getCanvas, setCanvasCreated } from "../../CanvasContainer/state.svelte";
+    import { logicSize } from "../../CanvasContainer/state.svelte";
 
     import AccordionItem from "$lib/components/ui/AccordionItem/AccordionItem.svelte";
+  import { onMount } from "svelte";
 
-    let width = $state(1920);
-    let height = $state(1080);
+    let isCreateCanvasDialogOpened = $state(false);
 
-    onMount(() => {
-        document.addEventListener('canvasInitialized', () => {
-            const canvas = getCanvas();
-            if (!canvas) { return; }
-        });
-    })
+    let width = $state(logicSize.width);
+    let height = $state(logicSize.height);
 
-    const onchange = (event: Event) => {
+    const validationInput = (event: Event) => {
         if (!event.target) { return; }
 
         const value = (event.target as HTMLInputElement).value;
@@ -33,25 +29,39 @@
             width: width,
             height: height
         });
+
+        setCanvasCreated(true);
     };
+
+    onMount(() => {
+        document.addEventListener('canvasCreated', () => {
+            width = logicSize.width;
+            height = logicSize.height;
+        });
+    })
 </script>
+
 {#snippet createCanvasHeader()}
-    <p>キャンバスの解像度を変更</p>
+    <p>キャンバスサイズ変更</p>
 {/snippet}
-<AccordionItem header={createCanvasHeader} class="mx-2" >
-    <div class="m-2 flex flex-col justify-start">
-        <div class="flex justify-start items-center">
-            <p class="ml-1">高さ</p>
-            <input type="number" {onchange} bind:value={width} min="1" step="1">
-            <p class="mr-1">px</p>
+
+<div class="m-2 flex flex-col justify-start">
+    <AccordionItem header={createCanvasHeader}>
+        <div class="m-2 flex flex-col justify-start">
+            <div class="flex justify-start items-center">
+                <p class="m-2">　幅</p>
+                <input type="number" onchange={validationInput} bind:value={width} min="1" step="1" class="w-30">
+                <p class="m-2">px</p>
+            </div>
+            <div class="flex justify-start items-center">
+                <p class="m-2">高さ</p>
+                <input type="number" onchange={validationInput} bind:value={height} min="1" step="1" class="w-30">
+                <p class="m-2">px</p>
+            </div>
+
+            <button onclick={onCreateCanvasClicked} class="button-general m-5 px-10 py-2 text-base-light">
+                <p>作成</p>
+            </button>
         </div>
-        <div class="flex justify-start items-center">
-            <p class="ml-1">　幅</p>
-            <input type="number" {onchange} bind:value={height} min="1" step="1">
-            <p class="mr-1">px</p>
-        </div>
-    </div>
-    <button type="button" title="適用" onclick={onCreateCanvasClicked} class="w-full p-4 -mx-2 flex-center button-general">
-        <p>適用</p>
-    </button>
-</AccordionItem>
+    </AccordionItem>
+</div>

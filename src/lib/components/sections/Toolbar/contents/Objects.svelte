@@ -133,7 +133,7 @@
     };
 </script>
 
-<div class="m-2 flex flex-col justify-start">
+    <div class="m-2 flex flex-col justify-start">
     <div class="flex-center">
         <p class="m-2 text-xl">オブジェクト一覧</p>
         <button type="button" title="再読み込み" onclick={updateObjects} class="group button-general m-2">

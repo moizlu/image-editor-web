@@ -42,10 +42,10 @@
     //     content: AddContent
     // };
 
-    // tabs["canvas"] = {
-    //     header: canvasTab,
-    //     content: CanvasContent
-    // }
+    tabs["canvas"] = {
+        header: canvasTab,
+        content: CanvasContent
+    }
 
     tabs["objects"] = {
         header: objectsTab,

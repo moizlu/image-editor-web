@@ -12,6 +12,7 @@
     import { onMount } from "svelte";
 
     import { isCanvasCreated, setCanvasCreated, getCanvas, logicSize } from "$lib/components/sections/CanvasContainer/state.svelte";
+    import { canDragOver } from "./state.svelte";
     import Icon from "$lib/components/ui/Icon/Icon.svelte";
     import Modal from "$lib/components/ui/Modal/Modal.svelte";
 
@@ -65,6 +66,13 @@
     };
 
     const onchange = (event: Event) => {
+        if (!canDragOver()) {
+            if (event.target) {
+                (event.target as HTMLInputElement).files = null;
+            }
+            return;
+        }
+
         const file = (event.target as HTMLInputElement)?.files?.[0];
 
         if (file) {
@@ -91,7 +99,9 @@
 
         window.ondrop = (event: DragEvent) => {
             event.preventDefault();
-            loadImage(event.dataTransfer?.files?.[0]);
+            if (canDragOver()) {
+                loadImage(event.dataTransfer?.files?.[0]);
+            }
         };
     });
 </script>
@@ -119,7 +129,7 @@
 </button>
 
 <!-- ファイルをドラッグしたときの表示 -->
-{#if isDraggingOver}
+{#if canDragOver() && isDraggingOver}
     <div transition:fade={{ duration: 300 }} class="z-12 fixed top-0 left-0 w-dvw h-dvh flex-col-center bg-base/90 backdrop-blur-sm">
         <Icon lightSrc={addPhotoLight} darkSrc={addPhotoDark} width={100} height={100} />
         <p class="text-2xl">ドラッグ&ドロップで画像を追加</p>

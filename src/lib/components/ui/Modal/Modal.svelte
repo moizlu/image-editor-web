@@ -1,7 +1,7 @@
 <script lang="ts">
     import { fade } from "svelte/transition";
     import type { Snippet } from "svelte";
-  import type { HTMLAttributes } from "svelte/elements";
+    import type { HTMLAttributes } from "svelte/elements";
 
     interface Props extends HTMLAttributes<HTMLDivElement> {
         isOpened?: boolean;
@@ -29,6 +29,7 @@
             backgroundElement?.click();
         }
     };
+
 </script>
 
 {#if isOpened}
