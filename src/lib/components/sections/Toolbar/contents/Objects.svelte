@@ -190,7 +190,9 @@
         activeObject?.setRelativeX(activeObjX);
         activeObject?.setRelativeY(activeObjY);
 
-        activeObject?.set({'text': activeObjText});
+        activeObject?.set({
+            text: activeObjText
+        });
 
         canvas.setActiveObject(activeObject as FabricObject);
         canvas.renderAll();
@@ -281,7 +283,7 @@
                 <p>Y</p>
                 <Number bind:value={activeObjY} onchange={onActiveObjectChanged} />
             </div>
-            {#if 'text' in activeObject}
+            {#if activeObject.type = 'text'}
                 <p class="text-center">テキスト</p>
                 <input type="text" bind:value={activeObjText} onchange={onActiveObjectChanged} class="text-right rounded-lg p-2 shadow-black shadow-sm/100">
             {/if}
