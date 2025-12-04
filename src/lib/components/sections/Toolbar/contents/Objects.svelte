@@ -122,7 +122,7 @@
         const rect = new fabric.Rect({
             width: 100,
             height: 100,
-            fill: "#FF0000"
+            fill: "rgb(255, 0, 0)"
         });
         canvas.add(rect);
         canvas.centerObject(rect);

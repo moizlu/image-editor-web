@@ -47,10 +47,11 @@
     // });
 </script>
 
-<Modal bind:isOpened={isModalOpened} isModal={true}>
-    <div class="w-90 h-60 flex flex-col justify-between items-center bg-base rounded-2xl shadow-black shadow-sm/100">
+<Modal bind:isOpened={isModalOpened} isModal={false}>
+    <div class="w-90 h-70 flex flex-col justify-between items-center bg-base rounded-2xl shadow-black shadow-sm/100">
         <Icon lightSrc={exclamationLight} darkSrc={exclamationDark} width={100} height={100} />
         <p class="text-lg">本当にリセットしますか？</p>
+        <p class="text-xl text-nowrap text-center text-danger">履歴も含めて全て削除されます。<br>この操作は取り消せません。</p>
         <div class="flex-center">
             <button onclick={executeReset}
                     class="button-general w-30 m-5 py-2 bg-danger text-base-light hover:bg-danger/75 active:bg-danger/50">

@@ -32,7 +32,7 @@ export const initCanvas = async (canvasElement: HTMLCanvasElement | undefined) =
     }
 
     canvas = new Canvas(canvasElement, {
-        backgroundColor: 'white'
+        backgroundColor: 'rgb(255, 255, 255)'
     });
 
     fabric = await import("fabric");
