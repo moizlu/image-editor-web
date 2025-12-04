@@ -33,6 +33,14 @@
 
     let objectCount = $state(0);
 
+    const onUploadOverlayClicked = () => {
+        document.getElementById("image-upload-input")?.click();
+    };
+
+    const onCreateCanvasClicked = () => {
+        isCanvasCreateDialogOpened = true;
+    };
+
     onMount(() => {
         document.addEventListener('canvasInitialized', () => {
             canvas = getCanvas();
@@ -49,14 +57,6 @@
 
         initCanvas(canvasElement);
     });
-
-    const onUploadOverlayClicked = () => {
-        document.getElementById("image-upload-input")?.click();
-    };
-
-    const onCreateCanvasClicked = () => {
-        isCanvasCreateDialogOpened = true;
-    };
 </script>
 
 <!-- canvasに直接クラスをつけるとなんかおかしくなる -->

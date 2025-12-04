@@ -14,7 +14,7 @@
     import plusLight from "$lib/assets/images/light/plus.svg";
     import plusDark from "$lib/assets/images/dark/plus.svg";
 
-    import type { FabricObject } from "fabric";
+    import { FabricText, type FabricObject } from "fabric";
 
     import Icon from "$lib/components/ui/Icon/Icon.svelte";
 
@@ -22,8 +22,13 @@
     import { getCanvas, getFabric } from "../../CanvasContainer/state.svelte";
 
     import AccordionItem from "$lib/components/ui/AccordionItem/AccordionItem.svelte";
+    import RGBValue from "$lib/components/ui/RGBValue/RGBValue.svelte";
+    import Number from "$lib/components/ui/Number/Number.svelte";
 
-    let activeObject: FabricObject | undefined = $state(undefined);
+    let activeObject: FabricObject | FabricText | undefined = $state(undefined);
+    let activeObjX = $state(0);
+    let activeObjY = $state(0);
+    let activeObjText = $state("");
     let objects: FabricObject[] = $state([]);
 
     const viewObjects = () => {
@@ -38,9 +43,20 @@
         if (!canvas) { return; }
         objects = canvas.getObjects();
 
+        activeObject = canvas.getActiveObject();
+
         if (objects.length === 1) {
             canvas.setActiveObject(objects[0]);
             activeObject = canvas.getActiveObject();
+        }
+
+        if (activeObject) {
+            activeObjX = activeObject.getRelativeX();
+            activeObjY = activeObject.getRelativeY();
+
+            if ('text' in activeObject) {
+                activeObjText = activeObject.text as string;
+            }
         }
     };
 
@@ -113,22 +129,71 @@
         return url;
     };
 
+    const addObject = (obj: FabricObject) => {
+        const canvas = getCanvas();
+        if (!canvas) { return; }
+
+        canvas.add(obj);
+        canvas.centerObject(obj);
+        canvas.setActiveObject(obj);
+        canvas.renderAll();
+
+        updateObjects();
+    };
 
     const onAddRectClicked = () => {
         const fabric = getFabric();
-        const canvas = getCanvas();
-        if (!fabric || !canvas) { return; }
+        if (!fabric) { return; }
 
-        const rect = new fabric.Rect({
+        addObject(new fabric.Rect({
             width: 100,
             height: 100,
             fill: "rgb(255, 0, 0)"
-        });
-        canvas.add(rect);
-        canvas.centerObject(rect);
-        canvas.setActiveObject(rect);
-        canvas.renderAll();
+        }));
+    };
 
+    const onAddTriangleClicked = () => {
+        const fabric = getFabric();
+        if (!fabric) { return; }
+
+        addObject(new fabric.Triangle({
+            width: 100,
+            height: 100,
+            fill: "rgb(255, 0, 0)"
+        }));
+    };
+
+    const onAddCircleClicked = () => {
+        const fabric = getFabric();
+        if (!fabric) { return; }
+
+        addObject(new fabric.Circle({
+            width: 100,
+            height: 100,
+            fill: "rgb(255, 0, 0)"
+        }));
+    };
+
+    const onAddTextClicked = () => {
+        addObject(new FabricText('text', {
+            width: 100,
+            height: 100,
+            fill: "rgb(255, 0, 0)"
+        }));
+    };
+
+
+    const onActiveObjectChanged = () => {
+        const canvas = getCanvas();
+        if (!canvas) { return; }
+
+        activeObject?.setRelativeX(activeObjX);
+        activeObject?.setRelativeY(activeObjY);
+
+        activeObject?.set({'text': activeObjText});
+
+        canvas.setActiveObject(activeObject as FabricObject);
+        canvas.renderAll();
         updateObjects();
     };
 </script>
@@ -194,14 +259,35 @@
         </div>
     {/snippet}
     <AccordionItem header={addMenuHeader}>
-        <button type="button" title="四角形を追加" onclick={onAddRectClicked} class="w-full my-2 p-2 button-general">
-            <p>四角形を追加</p>
-        </button>
+        <button type="button" title="四角形を追加" onclick={onAddRectClicked} class="w-full my-2 p-2 button-general"><p>四角形を追加</p></button>
+        <button type="button" title="三角形を追加" onclick={onAddTriangleClicked} class="w-full my-2 p-2 button-general"><p>三角形を追加</p></button>
+        <!-- <button type="button" title="円を追加" onclick={onAddCircleClicked} class="w-full my-2 p-2 button-general"><p>円を追加</p></button> -->
+         <button type="button" title="テキストを追加" onclick={onAddTextClicked} class="w-full my-2 p-2 button-general"><p>テキストを追加</p></button>
     </AccordionItem>
 
+    <p class="text-3xl text-center m-2">プロパティ</p>
     {#key activeObject}
         {#if activeObject}
-            {typeof activeObject.fill}
+            {#if typeof activeObject.fill === 'string'}
+                <p class="text-center text-xl">背景色</p>
+                <RGBValue bind:value={activeObject.fill} onchange={onActiveObjectChanged} />
+            {/if}
+
+            <div class="my-2 flex-center gap-2">
+                <p>X</p>
+                <Number bind:value={activeObjX} onchange={onActiveObjectChanged} />
+            </div>
+            <div class="my-2 flex-center gap-2">
+                <p>Y</p>
+                <Number bind:value={activeObjY} onchange={onActiveObjectChanged} />
+            </div>
+            {#if 'text' in activeObject}
+                <p class="text-center">テキスト</p>
+                <input type="text" bind:value={activeObjText} onchange={onActiveObjectChanged} class="text-right rounded-lg p-2 shadow-black shadow-sm/100">
+            {/if}
+
+        {:else}
+            <p class="text-center m-2">オブジェクトなし</p>
         {/if}
     {/key}
 </div>

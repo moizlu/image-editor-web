@@ -42,13 +42,21 @@
     };
 
     onMount(() => {
-        document.addEventListener('canvasInitialized', () => {
+        const onCanvasInitialized = () => {
             const canvas = getCanvas();
             resizeCanvas();
             canvas?.on('object:added', resizeCanvas)
-        });
+        };
+
+        document.addEventListener('canvasInitialized', onCanvasInitialized);
         document.addEventListener('canvasCreated', resizeCanvas);
         window.addEventListener('resize', resizeCanvas);
+
+        return () => {
+            document.removeEventListener('canvasInitialized', onCanvasInitialized);
+            document.removeEventListener('canvasCreated', resizeCanvas);
+            window.removeEventListener('resize', resizeCanvas);
+        };
     });
 </script>
 

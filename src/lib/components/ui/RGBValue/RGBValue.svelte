@@ -29,14 +29,19 @@
     };
 
     onMount(() => {
-        document.addEventListener('canvasCreated', () => {
+        const onCanvasCreated = () => {
             // 遅らせないと親コンポーネント側の初期化処理と競合する
             setTimeout(() => {
                 init();
             }, 50);
-        });
+        };
+        document.addEventListener('canvasCreated', onCanvasCreated);
 
         init();
+
+        return () => {
+            document.removeEventListener('canvasCreated', onCanvasCreated);
+        }
     })
 
 </script>
