@@ -77,7 +77,7 @@
 
             <p class="text-sm">変更すると履歴はリセットされます。</p>
 
-            <button onclick={onCreateCanvasClicked} class="button-general m-5 px-10 py-2 text-base-light">
+            <button onclick={onCreateCanvasClicked} class="button-general m-5 px-10 py-2">
                 <p>適用</p>
             </button>
         </div>
